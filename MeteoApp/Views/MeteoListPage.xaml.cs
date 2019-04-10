@@ -12,8 +12,8 @@ namespace MeteoApp
         public MeteoListPage()
         {
             InitializeComponent();
-
             BindingContext = new MeteoListViewModel();
+            
         }
 
         protected override void OnAppearing()

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Collections.Generic;
 
 namespace MeteoApp
 {
@@ -21,12 +22,22 @@ namespace MeteoApp
         {
             Entries = new ObservableCollection<Entry>();
 
-            for (var i = 0; i < 10; i++)
+            List<string> cities = new List<string>()
+            {
+                "Your Position",
+                "Londra",
+                "Milano",
+                "Napoli",
+                "Roma"
+            };
+
+            int i = 0;
+            foreach(var city in cities)
             {
                 var e = new Entry
                 {
-                    ID = i,
-                    Name = "Entry " + i
+                    ID = i++,
+                    Name = city
                 };
 
                 Entries.Add(e);
