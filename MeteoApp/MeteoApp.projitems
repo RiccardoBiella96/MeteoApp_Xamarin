@@ -21,6 +21,12 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Models\Entry.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\User.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LoginFormViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\LoginFormPage.xaml.cs">
+      <DependentUpon>LoginFormPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Views\MeteoListPage.xaml.cs">
       <DependentUpon>MeteoListPage.xaml</DependentUpon>
     </Compile>
@@ -30,10 +36,21 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MeteoListViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\_BaseViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MeteoItemViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\RegistryPage.xaml.cs">
+      <DependentUpon>RegistryPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Models\" />
-    <Folder Include="$(MSBuildThisFileDirectory)Views\" />
-    <Folder Include="$(MSBuildThisFileDirectory)ViewModels\" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\LoginFormPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Views\RegistryPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

@@ -1,0 +1,29 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
+
+namespace MeteoApp.Views
+{
+	public partial class LoginFormPage : ContentPage
+	{
+		public LoginFormPage ()
+		{
+			InitializeComponent ();
+		}
+
+
+        void onRegistryClicked(object sender, EventArgs e)
+        {
+            DisplayAlert("Informazione", "Stai creando un utente", "OK");
+            Navigation.PushAsync(new RegistryPage()
+
+            {
+            });
+        }
+    }
+}

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MeteoApp.Views;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,7 +24,11 @@ namespace MeteoApp
 
         void OnItemAdded(object sender, EventArgs e)
         {
-            DisplayAlert("Messaggio", "Testo", "OK");
+            DisplayAlert("Attenzione", "Stai per entrare in un zona protetta", "OK");
+            Navigation.PushAsync(new LoginFormPage()
+               
+            {
+            });
         }
 
         void OnListItemSelected(object sender, SelectedItemChangedEventArgs e)
