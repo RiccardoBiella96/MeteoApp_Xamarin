@@ -11,11 +11,15 @@
             </Grid.RowDefinitions>
             <StackLayout Grid.Row="0">
                 <Label Text="Please enter your credentials" />
-                <Entry Text="{Binding User.Username}"
+                <Entry Text="{Binding User.username}"
                        Placeholder="Username" />
-                <Entry Text="{Binding User.Password}"
+                <Entry Text="{Binding User.password}"
                        Placeholder="Password"
                        IsPassword="True" />
+                <Label Text="Invalid credentials entered" 
+                       x:Name="alertCredentials"
+                       TextColor="Red" 
+                       IsVisible="False"/>
             </StackLayout>
             <Button Grid.Row="2" Text="Register" Clicked="onRegistryClicked"  VerticalOptions="Start"/>
             <Button Grid.Row="3" Text="Authenticate" Clicked="onAuthenticateClicked" VerticalOptions="Start"/>

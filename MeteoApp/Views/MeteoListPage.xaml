@@ -10,6 +10,7 @@
             </ToolbarItem.Icon>
         </ToolbarItem>
     </ContentPage.ToolbarItems>
+    
 
     <ListView x:Name="listView" RowHeight="100" Margin="0" ItemSelected="OnListItemSelected" ItemsSource="{Binding Entries}">
         <ListView.ItemTemplate>
@@ -27,4 +28,6 @@
             </DataTemplate>
         </ListView.ItemTemplate>
     </ListView>
+ 
+    
 </ContentPage>

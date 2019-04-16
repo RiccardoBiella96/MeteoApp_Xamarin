@@ -40,12 +40,15 @@ namespace MeteoApp.Views
         void verifyCredential(object sender, EventArgs e)
         {
             var temp = BindingContext as RegistryViewModel;
-            postRequestRegistry();
-            
-            if (string.Compare(user.Password, password) == 0)
+            Console.WriteLine(user.password);
+            Console.WriteLine(password);
+
+            if (string.Equals(user.password, password))
             {
+                Console.WriteLine("ENTRANCE CONDITION: SONO ENTRATO");
                 AreCredentialsInvalid.IsVisible = false;
                 postRequestRegistry();
+                //TODO devo ritornare alla schermata di login come faccio?
             }
             else
             {
@@ -58,11 +61,11 @@ namespace MeteoApp.Views
 
         private async Task postRequestRegistry()
         {
-            //TODO mandare in post con body jason la richiesta al server.
+            
             var userSerialized = Newtonsoft.Json.JsonConvert.SerializeObject(user);
-            Console.WriteLine("Stringa json"+userSerialized.ToLower());
+            //Console.WriteLine("Stringa json"+userSerialized);
             var httpClient = new HttpClient();
-            var result = await httpClient.PostAsync("http://10.11.89.182:8080/public/register",new StringContent(userSerialized.ToLower(), Encoding.UTF8, "application/json"));
+            var result = await httpClient.PostAsync("http://10.11.89.182:8080/public/register",new StringContent(userSerialized, Encoding.UTF8, "application/json"));
 
             string resultcontent = await result.Content.ReadAsStringAsync();
             Console.WriteLine("RESULT: " + resultcontent);

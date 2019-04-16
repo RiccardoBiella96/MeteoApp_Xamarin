@@ -1,4 +1,5 @@
-﻿using MeteoApp.Views;
+﻿using MeteoApp.Models;
+using MeteoApp.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,15 +23,26 @@ namespace MeteoApp
             base.OnAppearing();
         }
 
-        void OnItemAdded(object sender, EventArgs e)
+        async void OnItemAdded(object sender, EventArgs e)
         {
             DisplayAlert("Attenzione", "Stai per entrare in un zona protetta", "OK");
-            Navigation.PushAsync(new LoginFormPage()
-               
+            bool result = await XAuthKey.isValid();
+            if (!result)
             {
-            });
-        }
+                Navigation.PushAsync(new LoginFormPage()
 
+                {
+                });
+            }
+            else
+            {
+                Navigation.PushAsync(new AddCityPage()
+
+                {
+                });
+            }
+        }
+        
         void OnListItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItem != null)
@@ -41,5 +53,7 @@ namespace MeteoApp
                 });
             }
         }
+
+
     }
 }
