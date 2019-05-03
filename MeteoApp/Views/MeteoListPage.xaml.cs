@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MeteoApp.Models;
+using MeteoApp.Views;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,8 +14,8 @@ namespace MeteoApp
         public MeteoListPage()
         {
             InitializeComponent();
-
             BindingContext = new MeteoListViewModel();
+            
         }
 
         protected override void OnAppearing()
@@ -21,11 +23,26 @@ namespace MeteoApp
             base.OnAppearing();
         }
 
-        void OnItemAdded(object sender, EventArgs e)
+        async void OnItemAdded(object sender, EventArgs e)
         {
-            DisplayAlert("Messaggio", "Testo", "OK");
-        }
+            DisplayAlert("Attenzione", "Stai per entrare in un zona protetta", "OK");
+            bool result = await XAuthKey.isValid();
+            if (!result)
+            {
+                Navigation.PushAsync(new LoginFormPage()
 
+                {
+                });
+            }
+            else
+            {
+                Navigation.PushAsync(new AddCityPage()
+
+                {
+                });
+            }
+        }
+        
         void OnListItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItem != null)
@@ -36,5 +53,7 @@ namespace MeteoApp
                 });
             }
         }
+
+
     }
 }
