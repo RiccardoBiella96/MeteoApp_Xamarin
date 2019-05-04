@@ -1,19 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="MeteoApp.MeteoItemPage">
     <ContentPage.Content>
-        <RelativeLayout x:Name="container">
-            <Label Text="{Binding Entry.Info}" RelativeLayout.XConstraint="{ConstraintExpression 
-                        Type=RelativeToParent,
-                        Property=Width, 
-                        Factor=0.5,
-                        Constant=-25}"
-                   RelativeLayout.YConstraint=
-                "{ConstraintExpression 
-                        Type=RelativeToParent,
-                        Property=Height,
-                        Factor=0.5,
-                        Constant=-25}"
-            ></Label>
-        </RelativeLayout>
+            <Grid RowSpacing="0" ColumnSpacing="0" BackgroundColor="White">
+                <Grid.RowDefinitions >
+                    <RowDefinition Height="10*" ></RowDefinition>
+                    <RowDefinition Height="10*" ></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10*"></ColumnDefinition>
+                    <ColumnDefinition Width="10*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+            <StackLayout BackgroundColor="Black" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
+                <Label Text="{Binding Entry.Name}" Opacity="0.9" BackgroundColor="White"  VerticalOptions="CenterAndExpand" HorizontalOptions="End"></Label>
+                <Image Margin="0,0,0,0" Source="london.jpg" Aspect="AspectFit" HorizontalOptions="FillAndExpand"
+       VerticalOptions="FillAndExpand" />
+            </StackLayout>
+            <StackLayout  BackgroundColor="Black" Grid.Column="0" Grid.Row="1" >
+                <Label Text="{Binding Entry.TempMin, StringFormat='Tmin {0:F0}°'}" Opacity="0.9" BackgroundColor="White"  VerticalOptions="CenterAndExpand" HorizontalOptions="End"></Label>
+                <Label Text="{Binding Entry.Temp, StringFormat='T {0:F0}°'}" Opacity="0.9" BackgroundColor="White"  VerticalOptions="CenterAndExpand" HorizontalOptions="End"></Label>
+                <Label Text="{Binding Entry.TempMax, StringFormat='TMax {0:F0}°'}" Opacity="0.9" BackgroundColor="White"  VerticalOptions="CenterAndExpand" HorizontalOptions="End"></Label>
+                <Image Margin="0,0,0,0" Source="temperatura.png" HorizontalOptions="Center" VerticalOptions="Center" />
+            </StackLayout>
+            <StackLayout  BackgroundColor="Black" Grid.Column="1" Grid.Row="1" >
+                <Label Text="{Binding Entry.Description}" Opacity="0.9" BackgroundColor="White"  VerticalOptions="CenterAndExpand" HorizontalOptions="Center"></Label>
+                <Label Text="{Binding Entry.WindSpeed, StringFormat='Wind {0:F0} Km/h'}" Opacity="0.9" BackgroundColor="White"  VerticalOptions="CenterAndExpand" HorizontalOptions="Center"></Label>
+            </StackLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

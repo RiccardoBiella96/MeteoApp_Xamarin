@@ -110,6 +110,9 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable-hdpi\london.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable-hdpi\temperatura.png" />
+  </ItemGroup>
   <Import Project="..\MeteoApp\MeteoApp.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>
