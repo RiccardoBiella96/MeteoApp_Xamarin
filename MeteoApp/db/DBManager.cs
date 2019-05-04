@@ -16,13 +16,16 @@ namespace MeteoApp.db
             var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "TestSQLite.db3");
             database = new SQLiteAsyncConnection(dbPath);
             database.CreateTableAsync<EntryToSave>().Wait();
-            EntryToSave temp=new EntryToSave();
-            temp.key = "token";
-            temp.value = "";
-            database.InsertAsync(temp);
-            Console.WriteLine("INSERISCO LA PRIMA RIGA NEL DB");
-
-
+            var t = GetItemsAsync().Result;
+            var numElementsDB = GetItemsAsync().Result.Count;
+            if (numElementsDB == 0)
+            {
+                EntryToSave temp = new EntryToSave();
+                temp.key = "token";
+                temp.value = "123";
+                database.InsertAsync(temp);
+                Console.WriteLine("INSERISCO LA PRIMA RIGA NEL DB");
+            }
         }
 
         /*

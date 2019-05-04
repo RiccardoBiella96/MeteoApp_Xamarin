@@ -73,10 +73,17 @@ namespace MeteoApp.Views
             XAuthKey.xauth = "";
             string resultcontent = await result.Content.ReadAsStringAsync();
             Console.WriteLine("RESULT: " + resultcontent);
-            XAuthKey.xauth = result.Headers.GetValues("X-Auth").FirstOrDefault();
-            Console.WriteLine("HEADER: " + XAuthKey.xauth);
-            if (string.Equals(XAuthKey.xauth, "")) return false;
-            return true;
+            
+            try
+            {
+                XAuthKey.xauth = result.Headers.GetValues("X-Auth").FirstOrDefault();
+                Console.WriteLine("HEADER: " + XAuthKey.xauth);
+                return true;
+            }
+            catch (InvalidOperationException e)
+            {
+                return false;
+            }
         }
     }
 }

@@ -35,20 +35,27 @@ namespace MeteoApp.Views
             BindingContext = new RegistryViewModel(user, ref password);
         }
 
-        
 
-        void verifyCredential(object sender, EventArgs e)
+
+        async void verifyCredential(object sender, EventArgs e)
         {
             var temp = BindingContext as RegistryViewModel;
             Console.WriteLine(user.password);
-            Console.WriteLine(password);
+            Console.WriteLine(password); 
+            password = p.Text;
+            var a = user.password.Equals(password);
 
             if (string.Equals(user.password, password))
             {
-                Console.WriteLine("ENTRANCE CONDITION: SONO ENTRATO");
+                
                 AreCredentialsInvalid.IsVisible = false;
-                postRequestRegistry();
+                await postRequestRegistry();
+                Console.WriteLine("ho registrato");
                 //TODO devo ritornare alla schermata di login come faccio?
+                Navigation.PushAsync(new LoginFormPage()
+
+                {
+                });
             }
             else
             {
