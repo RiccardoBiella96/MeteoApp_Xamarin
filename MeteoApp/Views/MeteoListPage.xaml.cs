@@ -27,8 +27,10 @@ namespace MeteoApp
         {
             DisplayAlert("Attenzione", "Stai per entrare in un zona protetta", "OK");
             bool result = await XAuthKey.isValid();
+            Console.WriteLine("VALORE RESULT:"+ result);
             if (!result)
             {
+                
                 Navigation.PushAsync(new LoginFormPage()
 
                 {

@@ -5,6 +5,8 @@
         public int ID { get; set; }
         public string Name { get; set; }
 
+        public char DN { get; set; }
+
         public string Description { get; set; }
 
         public string IconName { get; set; }
@@ -19,7 +21,7 @@
 
         public double Humidity { get; set; }
 
-        public string Info { get; set; }
+        
 
         public double Latitude { get; set; }
 
@@ -27,16 +29,7 @@
 
         public void updateInfo()
         {
-            Info = "Name: " + Name +
-                   "\nLatitude: " + Latitude +
-                   "\nLongitude: " + Longitude +
-                   "\nDescription: " + Description +
-                   "\nIconName: " + IconName +
-                   "\nTempMin: " + TempMin +
-                   "\nTemp: " + Temp +
-                   "\nTempMax: " + TempMax +
-                   "\nWindSpeed: " + WindSpeed +
-                   "\nHumidity: " + Humidity;
+            DN = IconName[IconName.Length - 1];
         }
     }
 }

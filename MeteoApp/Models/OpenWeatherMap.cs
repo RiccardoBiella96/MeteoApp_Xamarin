@@ -46,7 +46,7 @@ namespace MeteoApp.Droid.Models
             entry.WindSpeed = (double) JObject.Parse(content)["wind"]["speed"];
 
             // Update info
-            //entry.updateInfo();
+            entry.updateInfo();
         }
     }
 }
