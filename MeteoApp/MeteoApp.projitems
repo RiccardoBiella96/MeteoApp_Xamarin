@@ -21,11 +21,11 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Models\Entry.cs" />
-	<Compile Include="$(MSBuildThisFileDirectory)Models\EntryToSave.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\EntryToSave.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\OpenWeatherMap.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\User.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\XAuthKey.cs" />
-	<Compile Include="$(MSBuildThisFileDirectory)db\DBManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)db\DBManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LoginFormViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RegistryViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Views\AddCityPage.xaml.cs">
