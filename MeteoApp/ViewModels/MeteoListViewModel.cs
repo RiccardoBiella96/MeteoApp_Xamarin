@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using MeteoApp.Droid.Models;
+using MeteoApp.Models;
 using Plugin.Geolocator;
+using System.Net.Http;
+using Newtonsoft.Json.Linq;
 
 namespace MeteoApp
 {
@@ -22,37 +24,65 @@ namespace MeteoApp
             }
         }
 
+        public void addNewEntry(Entry entry)
+        {
+            Entries.Add(entry);
+        }
+
         public MeteoListViewModel()
         {
             Entries = new ObservableCollection<Entry>();
             WeatherMap = new OpenWeatherMap();
-            
-            
 
-            List<string> cities = new List<string>()
-            {
-                "Londra",
-                "Milano",
-                "Napoli",
-                "Roma"
-            };
+            // Prelevo dal database le mie città
 
-            int i = 1;
-            foreach (var city in cities)
-            {
-                var e = new Entry
-                {
-                    ID = i++,
-                    Name = city
-                };
-                WeatherMap.UpdateWeatherInfo(e);
-                Entries.Add(e);
-            }
-
+            getUserLocations();
             updateCurrentLocation();
         }
-        
-        
+ 
+        public async void getUserLocations()
+        {
+            //Entries.Clear();
+            for(int i = 1; i<Entries.Count; i++)
+            {
+                Entries.RemoveAt(i);
+            }
+
+            var httpClient = new HttpClient();
+            try
+            {
+                Console.WriteLine("NON FUNZIONA: " + XAuthKey.xauth);
+                if(Models.XAuthKey.xauth == null)
+                    Models.XAuthKey.xauth = App.Database.GetItemsWithWhere("token").Result[0].value;
+  
+                Console.WriteLine("TOKEN LOCATIONS: " + XAuthKey.xauth);
+                httpClient.DefaultRequestHeaders.Add("X-Auth", XAuthKey.xauth);
+
+                var result = await httpClient.GetAsync("http://10.11.89.182:8080/protected/getLocations");
+                string jsonResult = await result.Content.ReadAsStringAsync();
+
+                string locations = (string)JObject.Parse(jsonResult)["locations"];
+                string[] cities = locations.Split(";");
+
+                Console.WriteLine("GET LOCATIONS: " + locations);
+
+                int i = 1;
+                foreach (var city in cities)
+                {
+                    if(city != "")
+                    {
+                        var e = new Entry
+                        {
+                            ID = i++,
+                            Name = city
+                        };
+                        WeatherMap.UpdateWeatherInfo(e);
+                        Entries.Add(e);
+                    }
+                }
+            }
+            catch (Exception e) { }
+        }
 
         private async void updateCurrentLocation()
         {

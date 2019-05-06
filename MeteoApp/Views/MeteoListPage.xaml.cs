@@ -7,6 +7,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
+using Acr;
+using Acr.UserDialogs;
+using System.Net.Http;
+
 namespace MeteoApp
 {
     public partial class MeteoListPage : ContentPage
@@ -25,24 +29,41 @@ namespace MeteoApp
 
         async void OnItemAdded(object sender, EventArgs e)
         {
-            DisplayAlert("Attenzione", "Stai per entrare in un zona protetta", "OK");
             bool result = await XAuthKey.isValid();
             if (!result)
             {
-                Navigation.PushAsync(new LoginFormPage()
-
+                DisplayAlert("Attenzione", "E' necessario eseguire il login per procedere", "OK");
+                Navigation.PushAsync(new LoginFormPage(BindingContext)
                 {
                 });
+                //((MeteoListViewModel)BindingContext).getUserLocations();
             }
             else
             {
-                Navigation.PushAsync(new AddCityPage()
-
+                PromptResult pResult = await UserDialogs.Instance.PromptAsync(new PromptConfig
                 {
+                    InputType = InputType.Default,
+                    OkText = "Add",
+                    Title = "Add location",
                 });
+
+                if (pResult.Ok && !string.IsNullOrWhiteSpace(pResult.Text))
+                {
+                    OpenWeatherMap openWeatherMap = new OpenWeatherMap();
+                    Entry entry = new Entry();
+                    entry.Name = pResult.Text;
+                    openWeatherMap.UpdateWeatherInfo(entry);
+                    ((MeteoListViewModel)BindingContext).addNewEntry(entry);
+
+                    var httpClient = new HttpClient();
+                    httpClient.DefaultRequestHeaders.Add("X-Auth", XAuthKey.xauth);
+                    var res = await httpClient.PostAsync("http://10.11.89.182:8080/protected/addLocation/"+entry.Name, new StringContent("Add new Location", Encoding.UTF8, "text/html"));
+                    string resultcontent = await res.Content.ReadAsStringAsync();
+                    Console.WriteLine("res adding location: " + resultcontent);
+                }
             }
         }
-        
+
         void OnListItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItem != null)
