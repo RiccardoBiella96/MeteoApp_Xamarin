@@ -30,6 +30,7 @@ namespace MeteoApp
         async void OnItemAdded(object sender, EventArgs e)
         {
             bool result = await XAuthKey.isValid();
+            Console.WriteLine("VALORE RESULT:"+ result);
             if (!result)
             {
                 DisplayAlert("Attenzione", "E' necessario eseguire il login per procedere", "OK");
