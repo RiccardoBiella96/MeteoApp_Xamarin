@@ -19,7 +19,9 @@
                     
                         
                         <StackLayout Margin="0,0,0,0" Orientation="Horizontal" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="Transparent">
-                        <Image Margin="0,0,0,0" Source="london.jpg" HorizontalOptions="Center" VerticalOptions="Center" />
+                        <Image Margin="0,0,0,0" Source="{Binding IconName, StringFormat='http://openweathermap.org/img/w/{0:F0}.png'}" Aspect="AspectFit" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+
+                        <!--<Image Margin="0,0,0,0" Source="london.jpg" HorizontalOptions="Center" VerticalOptions="Center" />-->
                         <Label Text="{Binding Name}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" BackgroundColor="Transparent"/>
                             <Image Source="check.png" HorizontalOptions="End"  />
                         </StackLayout>

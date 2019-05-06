@@ -6,6 +6,7 @@ using MeteoApp.Models;
 using Plugin.Geolocator;
 using System.Net.Http;
 using Newtonsoft.Json.Linq;
+using System.Threading.Tasks;
 
 namespace MeteoApp
 {
@@ -76,8 +77,12 @@ namespace MeteoApp
                             ID = i++,
                             Name = city
                         };
-                        WeatherMap.UpdateWeatherInfo(e);
-                        Entries.Add(e);
+
+
+                        Task<Entry> task = WeatherMap.UpdateWeatherInfo(e);
+                        var newEntry = await task;
+              
+                        Entries.Add(newEntry);
                     }
                 }
             }
@@ -91,15 +96,17 @@ namespace MeteoApp
             // One position
             var position = await locator.GetPositionAsync(TimeSpan.FromSeconds(10));
 
-            Entries.Insert(0, new Entry
+            var e = new Entry
             {
                 ID = 0,
                 Name = "Current position",
                 Latitude = position.Latitude,
                 Longitude = position.Longitude
-            });
-            
-            WeatherMap.UpdateWeatherInfo(Entries.ElementAt(0));
+            };
+
+            Task<Entry> task = WeatherMap.UpdateWeatherInfo(e);
+            var newEntry = await task;
+            Entries.Insert(0, newEntry);
         }
     }
 }

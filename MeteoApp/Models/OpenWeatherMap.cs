@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.Net.Http;
+using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 
 namespace MeteoApp.Models
@@ -8,7 +9,7 @@ namespace MeteoApp.Models
     {
         private static string API_KEY = "d9927f346fc26a1925e207acf647f307";
 
-        public async void UpdateWeatherInfo(Entry entry)
+        public async Task<Entry> UpdateWeatherInfo(Entry entry)
         {
             if(entry.Name.Trim() != "")
             {
@@ -49,7 +50,10 @@ namespace MeteoApp.Models
 
                 // Update info
                 entry.updateInfo();
+                return entry;
             }
+            return entry;
+
         }
     }
 }
