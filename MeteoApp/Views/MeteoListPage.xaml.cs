@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 using Acr.UserDialogs;
 using MeteoApp.Models;
 using MeteoApp.Views;
@@ -47,8 +48,9 @@ namespace MeteoApp
                     OpenWeatherMap openWeatherMap = new OpenWeatherMap();
                     Entry entry = new Entry();
                     entry.Name = pResult.Text;
-                    openWeatherMap.UpdateWeatherInfo(entry);
-                    ((MeteoListViewModel) BindingContext).addNewEntry(entry);
+                    Task<Entry> task = openWeatherMap.UpdateWeatherInfo(entry);
+                    var newEntry = await task;
+                    ((MeteoListViewModel) BindingContext).addNewEntry(newEntry);
 
                     var httpClient = new HttpClient();
                     httpClient.DefaultRequestHeaders.Add("X-Auth", XAuthKey.xauth);
