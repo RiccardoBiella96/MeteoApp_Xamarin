@@ -52,7 +52,7 @@ namespace MeteoApp.Views
                 await postRequestRegistry();
                 Console.WriteLine("ho registrato");
                 //TODO devo ritornare alla schermata di login come faccio?
-                Navigation.PushAsync(new LoginFormPage()
+                Navigation.PushAsync(new LoginFormPage(null)
 
                 {
                 });
@@ -61,10 +61,9 @@ namespace MeteoApp.Views
             {
                 AreCredentialsInvalid.IsVisible = true;
             }
-            
         }
 
-        
+
 
         private async Task postRequestRegistry()
         {
