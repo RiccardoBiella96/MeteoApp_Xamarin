@@ -1,15 +1,10 @@
-﻿using MeteoApp.Models;
-using MeteoApp.Views;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xamarin.Forms;
-
-using Acr;
-using Acr.UserDialogs;
+﻿using System;
 using System.Net.Http;
+using System.Text;
+using Acr.UserDialogs;
+using MeteoApp.Models;
+using MeteoApp.Views;
+using Xamarin.Forms;
 
 namespace MeteoApp
 {
@@ -19,7 +14,6 @@ namespace MeteoApp
         {
             InitializeComponent();
             BindingContext = new MeteoListViewModel();
-            
         }
 
         protected override void OnAppearing()
@@ -30,7 +24,7 @@ namespace MeteoApp
         async void OnItemAdded(object sender, EventArgs e)
         {
             bool result = await XAuthKey.isValid();
-            Console.WriteLine("VALORE RESULT:"+ result);
+            Console.WriteLine("VALORE RESULT:" + result);
             if (!result)
             {
                 DisplayAlert("Attenzione", "E' necessario eseguire il login per procedere", "OK");
@@ -54,11 +48,12 @@ namespace MeteoApp
                     Entry entry = new Entry();
                     entry.Name = pResult.Text;
                     openWeatherMap.UpdateWeatherInfo(entry);
-                    ((MeteoListViewModel)BindingContext).addNewEntry(entry);
+                    ((MeteoListViewModel) BindingContext).addNewEntry(entry);
 
                     var httpClient = new HttpClient();
                     httpClient.DefaultRequestHeaders.Add("X-Auth", XAuthKey.xauth);
-                    var res = await httpClient.PostAsync("http://10.11.89.182:8080/protected/addLocation/"+entry.Name, new StringContent("Add new Location", Encoding.UTF8, "text/html"));
+                    var res = await httpClient.PostAsync("http://10.11.89.182:8080/protected/addLocation/" + entry.Name,
+                        new StringContent("Add new Location", Encoding.UTF8, "text/html"));
                     string resultcontent = await res.Content.ReadAsStringAsync();
                     Console.WriteLine("res adding location: " + resultcontent);
                 }
@@ -75,7 +70,5 @@ namespace MeteoApp
                 });
             }
         }
-
-
     }
 }
