@@ -16,13 +16,12 @@ namespace MeteoApp.Views
 	public partial class LoginFormPage : ContentPage
 	{
         User user = new User();
+        MeteoListViewModel mModel;
 
-        public LoginFormPage ()
+        public LoginFormPage (Object m)
 		{
-
+            mModel = (MeteoListViewModel)m;
 			InitializeComponent ();
-
-            
             BindingContext = new LoginFormViewModel(user);
 		}
 
@@ -47,12 +46,10 @@ namespace MeteoApp.Views
             if (result)
             {
                 //fare partire la dialog di aggiunta citta
-                Navigation.PushAsync(new AddCityPage()
-
-                {
-                });
-
-
+                DisplayAlert("Informazione", "Log in eseguito", "OK");
+                //Page page = await Navigation.PopAsync();
+                //Navigation.PushAsync(page);
+                await Navigation.PopToRootAsync();
             }
             else
             {
@@ -78,6 +75,8 @@ namespace MeteoApp.Views
             {
                 XAuthKey.xauth = result.Headers.GetValues("X-Auth").FirstOrDefault();
                 Console.WriteLine("HEADER: " + XAuthKey.xauth);
+                if(mModel != null)
+                    mModel.getUserLocations();
                 return true;
             }
             catch (InvalidOperationException e)

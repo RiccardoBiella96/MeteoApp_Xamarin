@@ -1,34 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="MeteoApp.MeteoItemPage">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="MeteoApp.MeteoItemPage" BackgroundImage="{Binding Entry.DN,StringFormat='{0:F0}.jpg'}">
     <ContentPage.Content>
-        <AbsoluteLayout>
-            <Image AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1" Source="{Binding Entry.DN,StringFormat='{0:F0}.jpg'}" Aspect="AspectFit" HorizontalOptions="FillAndExpand"
-           VerticalOptions="FillAndExpand"/>
-                <Grid RowSpacing="0" ColumnSpacing="0" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0,0,1,1" BackgroundColor="Transparent">
+        <StackLayout Opacity="0.7" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="White">
+                <Label FontAttributes="Bold" FontSize="Large" Text="{Binding Entry.Name}"   VerticalOptions="CenterAndExpand" HorizontalOptions="Center"></Label>
+                <Image Margin="0,0,0,0" Source="{Binding Entry.IconName, StringFormat='http://openweathermap.org/img/w/{0:F0}.png'}" Aspect="AspectFit" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+                <Grid BackgroundColor="Transparent" HorizontalOptions="CenterAndExpand" VerticalOptions="FillAndExpand">
                     <Grid.RowDefinitions >
-                        <RowDefinition Height="10*" ></RowDefinition>
-                        <RowDefinition Height="10*" ></RowDefinition>
+                        <RowDefinition Height="Auto" ></RowDefinition>
+                        <RowDefinition Height="2*" ></RowDefinition>
+                        <RowDefinition Height="2*" ></RowDefinition>
+                        <RowDefinition Height="2*" ></RowDefinition>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="10*"></ColumnDefinition>
                         <ColumnDefinition Width="10*"></ColumnDefinition>
+                        <ColumnDefinition Width="10*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                <StackLayout BackgroundColor="White" Opacity="0.7" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
-                    <Label Text="{Binding Entry.Name}" Opacity="0.9" BackgroundColor="White"  VerticalOptions="CenterAndExpand" HorizontalOptions="End"></Label>
-                    <Image Margin="0,0,0,0" Source="{Binding Entry.IconName, StringFormat='http://openweathermap.org/img/w/{0:F0}.png'}" Aspect="AspectFit" HorizontalOptions="FillAndExpand"
-           VerticalOptions="FillAndExpand" />
-                </StackLayout>
-                <StackLayout  BackgroundColor="White" Opacity="0.7" Grid.Column="0" Grid.Row="1" >
-                    <Label Text="{Binding Entry.TempMin, StringFormat='Tmin {0:F0}°'}" Opacity="0.9" BackgroundColor="White"  VerticalOptions="CenterAndExpand" HorizontalOptions="End"></Label>
-                    <Label Text="{Binding Entry.Temp, StringFormat='T {0:F0}°'}" Opacity="0.9" BackgroundColor="White"  VerticalOptions="CenterAndExpand" HorizontalOptions="End"></Label>
-                    <Label Text="{Binding Entry.TempMax, StringFormat='TMax {0:F0}°'}" Opacity="0.9" BackgroundColor="White"  VerticalOptions="CenterAndExpand" HorizontalOptions="End"></Label>
-                    <Image Margin="0,0,0,0" Source="temperatura.png" HorizontalOptions="Center" VerticalOptions="Center" />
-                </StackLayout>
-                <StackLayout  BackgroundColor="White" Opacity="0.7" Grid.Column="1" Grid.Row="1" >
-                    <Label Text="{Binding Entry.Description}" Opacity="0.9" BackgroundColor="White"  VerticalOptions="CenterAndExpand" HorizontalOptions="Center"></Label>
-                    <Label Text="{Binding Entry.WindSpeed, StringFormat='Wind {0:F0} Km/h'}" Opacity="0.9" BackgroundColor="White"  VerticalOptions="CenterAndExpand" HorizontalOptions="Center"></Label>
-                </StackLayout>
+                <Label FontAttributes="Bold" TextDecorations="Underline" Text="TEMPERATURE" FontSize="Small" BackgroundColor="White"   Grid.Column="0" Grid.Row="0" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Label>
+                <Label FontAttributes="Bold" TextDecorations="Underline" Text="HUMIDITY" FontSize="Small" BackgroundColor="White"   Grid.Column="1" Grid.Row="0" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Label>
+                <Label FontAttributes="Bold" TextDecorations="Underline" Text="WIND" FontSize="Small" BackgroundColor="White"   Grid.Column="2" Grid.Row="0" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"></Label>
+
+
+                <Label FontAttributes="Bold" TextColor="DarkBlue" FontSize="Large" Text="{Binding Entry.TempMin, StringFormat='{0:F0}°C'}" Grid.Column="0" Grid.Row="1"  BackgroundColor="White"  VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"></Label>
+                <Label FontAttributes="Bold" Text="{Binding Entry.Temp, StringFormat='{0:F0}°C'}" FontSize="Large" Grid.Column="0" Grid.Row="2"  BackgroundColor="White"  VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"></Label>
+                <Label FontAttributes="Bold" TextColor="DarkRed" FontSize="Large"  Text="{Binding Entry.TempMax, StringFormat='{0:F0}°C'}" Grid.Column="0" Grid.Row="3"  BackgroundColor="White"  VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"></Label>
+
+                <Label FontAttributes="Bold" TextColor="Green" FontSize="Large" Text="{Binding Entry.Humidity, StringFormat='{0:F0} %'}" Grid.Column="1" Grid.Row="2"  BackgroundColor="White"  VerticalOptions="CenterAndExpand" HorizontalOptions="Center"></Label>
+
+                <Label FontAttributes="Bold" TextColor="Black" FontSize="Large" Text="{Binding Entry.WindSpeed, StringFormat='{0:F0} Km/h'}" Grid.Column="2" Grid.Row="2"  BackgroundColor="White"  VerticalOptions="CenterAndExpand" HorizontalOptions="Center"></Label>
+
             </Grid>
-        </AbsoluteLayout>
+            
+            
+            
+
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

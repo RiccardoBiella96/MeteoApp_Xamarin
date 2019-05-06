@@ -20,7 +20,6 @@ namespace MeteoApp
             }
         }
 
-
         public App()
         {
             InitializeComponent();
